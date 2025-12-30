@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Ашуля ❤️</title>
+
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: linear-gradient(180deg, #000000, #2b0015);
+    font-family: Arial, sans-serif;
+  }
+
+  /* Первоначальный скролл текста */
+  .text {
+    position: absolute;
+    top: 40%;
+    width: 220%;
+    transform: translateY(-50%);
+    font-size: 34px;
+    color: #ff3b6f;
+    white-space: nowrap;
+    animation: scroll 28s linear infinite;
+    z-index: 2;
+  }
+
+  @keyframes scroll {
+    0% { transform: translate(100%, -50%); }
+    100% { transform: translate(-120%, -50%); }
+  }
+
+  .tap {
+    position: fixed;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+    color: #ff7aa8;
+    font-size: 14px;
+    opacity: 0.7;
+    z-index: 4;
+  }
+
+  /* Новый текст с плавным появлением и свечением */
+  .love-text {
+    position: absolute;
+    top: 60%;
+    width: 100%;
+    text-align: center;
+    font-size: 36px;
+    color: #ff7aa8;
+    opacity: 0;
+    animation: appearText 6s ease-in forwards;
+    text-shadow: 0 0 10px #ff7aa8, 0 0 20px #ff3b6f, 0 0 30px #ff1f7b;
+    z-index: 2;
+  }
+
+  @keyframes appearText {
+    0% { opacity: 0; transform: translateY(20px); }
+    50% { opacity: 0.5; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Элементы падающие (сердечки и цветы) */
+  .falling {
+    position: absolute;
+    top: -10%;
+    font-size: 20px;
+    opacity: 0.9;
+    animation: fall linear infinite;
+    z-index: 3;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(120vh) rotate(360deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="text">
+  Ашуля, я люблю тебя ❤️ Я люблю тебя ❤️ Ты самая лучшая ❤️
+  Ашуля ❤️ Я люблю тебя ❤️ Всегда рядом ❤️ Я люблю тебя ❤️
+</div>
+
+<div class="love-text">
+  Я очень сильно люблю тебя и ты мое солнце 🌞❤️
+</div>
+
+<div class="tap">Нажми на экран, если музыка не включилась 🎵</div>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9f8638c0e6.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const hearts = ["❤️","💖","💗","💓","💞","💕"];
+  const flowers = ["🌸", "🌺", "💮"];
+  const elements = hearts.concat(flowers); // объединяем сердечки и цветы
+
+  function createFallingElement() {
+    const el = document.createElement("div");
+    el.className = "falling";
+    el.innerHTML = elements[Math.floor(Math.random() * elements.length)];
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.fontSize = (18 + Math.random() * 32) + "px";
+    el.style.animationDuration = (4 + Math.random() * 6) + "s";
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 10000);
+  }
+
+  setInterval(createFallingElement, 200);
+
+  document.body.addEventListener("click", () => {
+    document.getElementById("music").play();
+  });
+</script>
+
+</body>
+</html>
